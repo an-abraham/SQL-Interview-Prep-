@@ -1,1 +1,30 @@
-Hello
+select * from employee
+select * from department
+
+/* Return employee record with max salary*/
+
+select * from employee
+where salary  = (select Max(salary) from employee)
+
+-- select highest salary in employee table
+
+select Max (salary) from employee
+
+-- Select 2nd highest salary in employee table
+select Max (salary)
+from employee
+where salary Not In (select Max(salary)from employee)
+
+-- Select range of employee based on id
+select * from employee
+where employee_id between 2003 and 2008
+
+-- return employee name, highest salary, and department name
+select e.first_name, e.last_name, e.salary, e.department_name
+from Employee e inner join Department d ON (e.department_id = d.department_id)
+where salary IN (select Max(salary) from employee)
+
+-- return highest salary, employee name, department name
+select e.first_name, e.last_name, e.salary, e.department_name
+from Employee e inner join Department d ON (e.department_id = d.department_id)
+where salary IN (select Max(salary) from employee group by department_id)
